@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Свадебное приглашение Дмитрия и Ирины">
+    <meta name="theme-color" content="#D4AF37">
+
+    <!-- Open Graph для sharing -->
+    <meta property="og:title" content="Свадьба Дмитрия и Ирины">
+    <meta property="og:description" content="Приглашаем вас разделить с нами в этот день создания нашей семьи!">
+    <meta property="og:image" content="/assets/images/og-image.jpg">
+    <meta property="og:url" content="https://your-wedding-site.com">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Свадьба Дмитрия и Ирины">
+    <meta name="twitter:description" content="Приглашаем вас на нашу свадьбу!">
+    <meta name="twitter:image" content="/assets/images/og-image.jpg">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/assets/images/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Свадьба">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>Свадьба Дмитрия и Ирины</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader__content">
+            <div class="preloader__hearts">
+                <span class="heart">❦</span>
+                <span class="heart">❦</span>
+                <span class="heart">❦</span>
+            </div>
+            <p class="preloader__text">Загрузка приглашения...</p>
+        </div>
+    </div>
+
+    <!-- Music Button -->
+    <button class="music-btn" id="musicBtn" aria-label="Включить музыку">
+        <svg class="music-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18V5l12-2v13"/>
+            <circle cx="6" cy="18" r="3"/>
+            <circle cx="18" cy="16" r="3"/>
+        </svg>
+        <svg class="music-icon-paused" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+            <path d="M9 18V5l12-2v13"/>
+            <circle cx="6" cy="18" r="3"/>
+            <circle cx="18" cy="16" r="3"/>
+            <line x1="10" y1="2" x2="10" y2="10"/>
+            <line x1="16" y1="4" x2="16" y2="12"/>
+        </svg>
+    </button>
+
+    <!-- Audio Element -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="/assets/music/wedding-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <canvas class="particles-canvas" id="particlesCanvas"></canvas>
+
+        <div class="hero__content">
+            <div class="hero__names">
+                <span class="hero__name fade-in-up">Дмитрий</span>
+                <span class="hero__ampersand fade-in-up">&</span>
+                <span class="hero__name fade-in-up">Ирина</span>
+            </div>
+
+            <p class="hero__subtitle fade-in-up">Приглашают Вас стать свидетелями рождения их новой семьи</p>
+
+            <div class="hero__date fade-in-up">
+                <p class="hero__day">26</p>
+                <p class="hero__month">июля</p>
+                <p class="hero__year">2026 года</p>
+            </div>
+
+            <button class="hero__cta fade-in-up" id="openInvitation">
+                <span class="cta__text">Открыть приглашение</span>
+                <svg class="cta__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+                </svg>
+            </button>
+
+            <div class="hero__countdown fade-in-up">
+                <div class="countdown">
+                    <div class="countdown__item">
+                        <span class="countdown__number" id="days">00</span>
+                        <span class="countdown__label">дней</span>
+                    </div>
+                    <div class="countdown__item">
+                        <span class="countdown__number" id="hours">00</span>
+                        <span class="countdown__label">часов</span>
+                    </div>
+                    <div class="countdown__item">
+                        <span class="countdown__number" id="minutes">00</span>
+                        <span class="countdown__label">минут</span>
+                    </div>
+                    <div class="countdown__item">
+                        <span class="countdown__number" id="seconds">00</span>
+                        <span class="countdown__label">секунд</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero__scroll-indicator">
+            <span class="scroll-text">Прокрутите вниз</span>
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content (hidden initially) -->
+    <main class="main-content" id="mainContent">
+
+        <!-- Story Section -->
+        <section class="story" id="story">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Наша история</h2>
+
+                <div class="story__timeline">
+                    <div class="timeline-item fade-in-up">
+                        <div class="timeline__dot"></div>
+                        <div class="timeline__content">
+                            <span class="timeline__date">16 февраля 2024</span>
+                            <h3 class="timeline__title">Первая встреча</h3>
+                            <p class="timeline__text">Мы познакомились в походе на гору Иремель в Зюраткуле. 6 часов в одной машине дали нам возможность узнать друг друга...</p>
+                            <div class="timeline__photo">
+                                <img src="/assets/images/meeting.jpg" alt="Первая встреча" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item fade-in-up">
+                        <div class="timeline__dot"></div>
+                        <div class="timeline__content">
+                            <span class="timeline__date">7 апреля 2024</span>
+                            <h3 class="timeline__title">Первое свидание</h3>
+                            <p class="timeline__text">Мы рисовали граффити — было холодно, пальцы замерзали, но мы справились! Получилось "VIBEово" 🎨</p>
+                            <div class="timeline__photo">
+                                <img src="/assets/images/date.jpg" alt="Первое свидание" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item fade-in-up">
+                        <div class="timeline__dot"></div>
+                        <div class="timeline__content">
+                            <span class="timeline__date">21 февраля 2026</span>
+                            <h3 class="timeline__title">Сделал предложение! 💍</h3>
+                            <p class="timeline__text">В уютном домике на природе. Дима вскипятил чан, создал романтическую атмосферу и попросил Ирину стать его женой. Она сказала "Да!"</p>
+                            <div class="timeline__photo">
+                                <img src="/assets/images/proposal.jpg" alt="Предложение" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item fade-in-up">
+                        <div class="timeline__dot"></div>
+                        <div class="timeline__content">
+                            <span class="timeline__date">26 июля 2026</span>
+                            <h3 class="timeline__title">Наш день! 💒</h3>
+                            <p class="timeline__text">Камерный ужин для семьи и близких. Регистрация, тёплые объятия и начало нашей семейной жизни. Ждем тебя!</p>
+                            <div class="timeline__photo">
+                                <img src="/assets/images/wedding.jpg" alt="Свадьба" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- When & Where Section -->
+        <section class="when-where" id="whenWhere">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Когда и где</h2>
+
+                <div class="when-where__card fade-in-up">
+                    <div class="when-where__date">
+                        <div class="date-card">
+                            <svg class="date-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <div class="date-card__content">
+                                <p class="date-card__day">26</p>
+                                <p class="date-card__month">июля</p>
+                                <p class="date-card__year">2026 года</p>
+                            </div>
+                        </div>
+
+                        <div class="time-card">
+                            <svg class="time-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <div class="time-card__content">
+                                <p class="time-card__label">Сбор гостей</p>
+                                <p class="time-card__time">15:00</p>
+                                <p class="time-card__label">Церемония</p>
+                                <p class="time-card__time">16:00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="when-where__location">
+                        <div class="location-card">
+                            <svg class="location-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <div class="location-card__content">
+                                <h3 class="location-card__title">Ресторан "Мечты"</h3>
+                                <p class="location-card__address" id="address">Базовый пер., 64, Екатеринбург</p>
+                                <button class="location-card__copy" id="copyAddress" aria-label="Копировать адрес">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="map-container">
+                            <iframe
+                                src="https://www.google.com/maps/place/%D0%9C%D0%95%D0%A7%D0%A2%D0%AB/@56.8035104,60.6444397,17z/data=!3m1!4b1!4m6!3m5!1s0x43c1694b31b16f49:0x1d3757af8674b415!8m2!3d56.8035104!4d60.6470146!16s%2Fg%2F11hdpnn29h?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D"
+                                class="map-iframe"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+
+                        <button class="route-btn" id="routeBtn">
+                            <svg class="route-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                            </svg>
+                            <span>Построить маршрут</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule Section -->
+        <section class="schedule" id="schedule">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Программа дня</h2>
+
+                <div class="schedule__timeline">
+                    <div class="schedule-item fade-in-up">
+                        <div class="schedule__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </div>
+                        <div class="schedule__content">
+                            <span class="schedule__time">16:00</span>
+                            <h3 class="schedule__title">Регистрация брака</h3>
+                            <p class="schedule__description">Торжественная церемония регистрации</p>
+                        </div>
+                    </div>
+
+                    <div class="schedule-item fade-in-up">
+                        <div class="schedule__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                                <line x1="6" y1="1" x2="6" y2="4"/>
+                                <line x1="10" y1="1" x2="10" y2="4"/>
+                                <line x1="14" y1="1" x2="14" y2="4"/>
+                            </svg>
+                        </div>
+                        <div class="schedule__content">
+                            <span class="schedule__time">17:00</span>
+                            <h3 class="schedule__title">Камерный ужин</h3>
+                            <p class="schedule__description">Тёплый ужин для семьи и близких в уютной атмосфере</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wishes Section -->
+        <section class="wishes" id="wishes">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Пожелания</h2>
+
+                <div class="wishes__grid">
+                    <div class="wish-card fade-in-up">
+                        <div class="wish-card__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </div>
+                        <h3 class="wish-card__title">О подарках</h3>
+                        <p>Самый ценный подарок для нас — ваше присутствие и улыбки! Если же вы хотите подарить что-то материальное, мы будем искренне признательны за денежный подарок в конверте или перевод на карту.</p>
+                        <p class="wish-card__note">Каждый ваш подарок приближает нас к мечте о романтическом путешествии на озеро Комо ✨</p>
+                    </div>
+
+                    <div class="wish-card fade-in-up">
+                        <div class="wish-card__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="wish-card__title">О цветах</h3>
+                        <p>Мы обожаем цветы, но просим вас не дарить нам букеты и бутоньерки — они могут завять, а ваши тёплые объятия останутся в наших сердцах навсегда!</p>
+                        <p class="wish-card__note">Подарите цветы своим любимым дома — они доставят им радость! 🌸</p>
+                    </div>
+
+                    <div class="wish-card fade-in-up">
+                        <div class="wish-card__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="wish-card__title">Фото и видео</h3>
+                        <p>Будьте фотографами нашего счастья! Делитесь снимки в соцсетях — мы будем с любовью пересматривать каждый момент.</p>
+                        <p class="wish-card__note">#СвадьбаДмитрияИИрины #ЛюбовьВЕкатеринбурге</p>
+                    </div>
+
+                    <div class="wish-card fade-in-up">
+                        <div class="wish-card__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/>
+                                <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="wish-card__title">Как добраться</h3>
+                        <p>Координаты для навигатора:</p>
+                        <p class="wish-card__coords">56.8389° N, 60.6057° E</p>
+                        <p class="wish-card__note">Бесплатная парковка для гостей свадьбы у ресторана</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section class="rsvp" id="rsvp">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Подтверждение присутствия</h2>
+                <p class="rsvp__subtitle fade-in-up">Пожалуйста, подтвердите ваше присутствие до 10 июля 2026</p>
+
+                <form class="rsvp-form fade-in-up" id="rsvpForm" novalidate>
+                    <div class="form-group">
+                        <label for="name" class="form-label">Ваше имя *</label>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="Иван Иванов" required>
+                        <span class="form-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Вы придёте? *</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="attendance" value="yes" required>
+                                <span class="radio-custom"></span>
+                                <span class="radio-label">Да, с удовольствием!</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="attendance" value="no" required>
+                                <span class="radio-custom"></span>
+                                <span class="radio-label">К сожалению, не смогу</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="guests" class="form-label">Количество гостей (включая вас)</label>
+                        <select id="guests" name="guests" class="form-select">
+                            <option value="1">1 гость</option>
+                            <option value="2">2 гостя</option>
+                            <option value="3">3 гостя</option>
+                            <option value="4">4 гостя</option>
+                            <option value="5">5 гостей</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Особенности питания</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="diet" value="none">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">Без особенностей</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="diet" value="vegetarian">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">Вегетарианец</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="diet" value="vegan">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">Веган</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="diet" value="allergies">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">Пищевая аллергия</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="allergyGroup" style="display: none;">
+                        <label for="allergyDetails" class="form-label">Укажите аллергии</label>
+                        <input type="text" id="allergyDetails" name="allergyDetails" class="form-input" placeholder="Орехи, молоко, и т.д.">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" class="form-label">Комментарий</label>
+                        <textarea id="message" name="message" class="form-textarea" rows="4" placeholder="Ваши пожелания, вопросы или комментарии..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">Отправить</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"/>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- Success Modal -->
+                <div class="modal" id="successModal">
+                    <div class="modal__content">
+                        <div class="modal__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                        <h3 class="modal__title">Спасибо!</h3>
+                        <p class="modal__text">Спасибо, что нашли время! Ваш ответ записан. С трепетом и любовью ждём встречи! 💕</p>
+                        <button class="modal__close" id="closeModal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Section -->
+        <section class="final" id="final">
+            <div class="container">
+                <div class="final__content fade-in-up">
+                    <h2 class="final__title">Будем счастливы разделить этот день вместе с вами</h2>
+
+                    <div class="final__names">
+                        <span class="final__signature">С любовью,</span>
+                        <div class="final__couple">
+                            <span class="final__name">Дмитрий</span>
+                            <span class="final__ampersand">&</span>
+                            <span class="final__name">Ирина</span>
+                        </div>
+                    </div>
+
+                    <button class="share-btn" id="shareBtn">
+                        <svg class="share-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="18" cy="5" r="3"/>
+                            <circle cx="6" cy="12" r="3"/>
+                            <circle cx="18" cy="19" r="3"/>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                        </svg>
+                        <span>Поделиться приглашением</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer__text">Сделано с 💕 для Дмитрия и Ирины</p>
+            <p class="footer__date">26 июля 2026</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast__message"></span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/music.js"></script>
+    <script src="js/confetti.js"></script>
+    <script src="js/rsvp.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed'));
+            });
+        }
+    </script>
+</body>
+</html>

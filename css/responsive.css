@@ -1,0 +1,718 @@
+/* ============================================
+   RESPONSIVE DESIGN
+   Mobile First Approach
+   ============================================ */
+
+/* ============================================
+   SMALL DEVICES (320px - 480px)
+   ============================================ */
+
+@media (max-width: 480px) {
+    :root {
+        --space-xs: 0.4rem;
+        --space-sm: 0.8rem;
+        --space-md: 1.2rem;
+        --space-lg: 1.6rem;
+        --space-xl: 2.4rem;
+        --space-2xl: 3.2rem;
+    }
+
+    html {
+        font-size: 14px;
+    }
+
+    /* Hero Section */
+    .hero__content {
+        padding: var(--space-md);
+    }
+
+    .hero__name {
+        font-size: 1.8rem;
+    }
+
+    .hero__ampersand {
+        font-size: 1.2rem;
+    }
+
+    .hero__day {
+        font-size: 3rem;
+    }
+
+    .hero__month {
+        font-size: 1.2rem;
+    }
+
+    .hero__cta {
+        width: 100%;
+        max-width: 280px;
+        padding: var(--space-sm) var(--space-lg);
+        font-size: 0.9rem;
+    }
+
+    .countdown {
+        gap: var(--space-xs);
+    }
+
+    .countdown__item {
+        min-width: 50px;
+    }
+
+    .countdown__number {
+        font-size: 1.5rem;
+    }
+
+    .countdown__label {
+        font-size: 0.65rem;
+    }
+
+    /* Timeline */
+    .timeline-item {
+        padding-left: var(--space-lg);
+    }
+
+    .timeline__photo img {
+        max-height: 200px;
+        object-fit: cover;
+    }
+
+    /* When & Where */
+    .when-where__card {
+        padding: var(--space-md);
+    }
+
+    .when-where__date {
+        grid-template-columns: 1fr;
+    }
+
+    .date-card,
+    .time-card {
+        padding: var(--space-sm);
+    }
+
+    .map-container {
+        height: 200px;
+    }
+
+    /* Schedule */
+    .schedule-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .schedule__icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .schedule__icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Dress Code */
+    .palette__swatches {
+        gap: var(--space-xs);
+    }
+
+    .swatch {
+        width: 60px;
+        height: 60px;
+    }
+
+    .outfit-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .outfit-card__image {
+        height: 250px;
+    }
+
+    /* Wishes */
+    .wishes__grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* RSVP */
+    .rsvp-form {
+        padding: 0 var(--space-sm);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        padding: var(--space-sm);
+        font-size: 0.9rem;
+    }
+
+    .radio-option,
+    .checkbox-option {
+        font-size: 0.9rem;
+    }
+
+    /* Modal */
+    .modal__content {
+        padding: var(--space-lg);
+    }
+
+    /* Music Button */
+    .music-btn {
+        width: 44px;
+        height: 44px;
+        top: var(--space-sm);
+        right: var(--space-sm);
+    }
+
+    /* Toast */
+    .toast {
+        max-width: calc(100% - var(--space-lg));
+        font-size: 0.8rem;
+    }
+
+    /* Section titles */
+    .section-title {
+        font-size: 1.5rem;
+        margin-bottom: var(--space-lg);
+    }
+
+    /* Container */
+    .container {
+        padding: 0 var(--space-sm);
+    }
+
+    section {
+        padding: var(--space-lg) 0;
+    }
+}
+
+/* ============================================
+   MEDIUM DEVICES (481px - 768px)
+   ============================================ */
+
+@media (min-width: 481px) and (max-width: 768px) {
+    :root {
+        --space-lg: 1.8rem;
+        --space-xl: 2.6rem;
+        --space-2xl: 3.6rem;
+    }
+
+    /* Hero */
+    .hero__name {
+        font-size: 2.2rem;
+    }
+
+    .hero__day {
+        font-size: 5rem;
+    }
+
+    /* Countdown */
+    .countdown__item {
+        min-width: 55px;
+    }
+
+    .countdown__number {
+        font-size: 1.75rem;
+    }
+
+    /* Timeline */
+    .timeline__photo img {
+        max-height: 250px;
+    }
+
+    /* Schedule */
+    .schedule-item {
+        flex-direction: row;
+    }
+
+    /* Dress Code */
+    .outfit-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .outfit-card__image {
+        height: 280px;
+    }
+
+    /* Wishes */
+    .wishes__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Map */
+    .map-container {
+        height: 250px;
+    }
+}
+
+/* ============================================
+   LARGE DEVICES (769px - 1024px)
+   ============================================ */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Hero */
+    .hero__name {
+        font-size: 2.5rem;
+    }
+
+    .hero__day {
+        font-size: 6rem;
+    }
+
+    /* Count down */
+    .countdown__item {
+        min-width: 65px;
+    }
+
+    .countdown__number {
+        font-size: 2rem;
+    }
+
+    /* Timeline */
+    .timeline-item {
+        padding-left: var(--space-2xl);
+    }
+
+    /* Schedule */
+    .schedule__timeline {
+        max-width: 900px;
+    }
+
+    /* Dress Code */
+    .outfit-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Wishes */
+    .wishes__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Map */
+    .map-container {
+        height: 350px;
+    }
+
+    /* Modal */
+    .modal__content {
+        max-width: 450px;
+    }
+}
+
+/* ============================================
+   EXTRA LARGE DEVICES (1025px+)
+   ============================================ */
+
+@media (min-width: 1025px) {
+    /* Hero */
+    .hero__content {
+        padding: var(--space-2xl);
+    }
+
+    /* Timeline */
+    .story__timeline {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-xl);
+    }
+
+    .timeline-item {
+        padding-left: 0;
+    }
+
+    .timeline-item::before {
+        display: none;
+    }
+
+    .timeline__dot {
+        position: relative;
+        left: 0;
+        margin-bottom: var(--space-sm);
+    }
+
+    /* When & Where */
+    .when-where__card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-xl);
+    }
+
+    .when-where__location {
+        margin-top: 0;
+    }
+
+    /* Schedule */
+    .schedule__timeline {
+        max-width: 1000px;
+    }
+
+    /* Dress Code */
+    .outfit-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Wishes */
+    .wishes__grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* Map */
+    .map-container {
+        height: 400px;
+    }
+
+    /* Modal */
+    .modal__content {
+        max-width: 500px;
+    }
+}
+
+/* ============================================
+   LANDSCAPE ORIENTATION
+   ============================================ */
+
+@media (max-height: 600px) and (orientation: landscape) {
+    /* Hero */
+    .hero {
+        min-height: auto;
+        padding: var(--space-lg) 0;
+    }
+
+    .hero__content {
+        padding: var(--space-md);
+    }
+
+    .hero__day {
+        font-size: 3rem;
+    }
+
+    .hero__month {
+        font-size: 1rem;
+    }
+
+    .hero__cta {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .hero__countdown {
+        margin-top: var(--space-md);
+    }
+
+    .countdown__item {
+        min-width: 45px;
+    }
+
+    .countdown__number {
+        font-size: 1.25rem;
+    }
+
+    .countdown__label {
+        font-size: 0.6rem;
+    }
+
+    /* Sections */
+    section {
+        padding: var(--space-lg) 0;
+    }
+
+    /* Hide scroll indicator on landscape */
+    .hero__scroll-indicator {
+        display: none;
+    }
+}
+
+/* ============================================
+   HIGH DPI / RETINA DISPLAYS
+   ============================================ */
+
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 192dpi) {
+    /* Use higher quality images */
+    .timeline__photo img,
+    .outfit-card__image img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* ============================================
+   DARK MODE SUPPORT (Future)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+    /* Uncomment when implementing dark mode
+    :root {
+        --color-white: #1a1a1a;
+        --bg-primary: #0a0a0a;
+        --bg-secondary: #1a1a1a;
+        --text-primary: #f5f5f5;
+        --text-secondary: #b0b0b0;
+        --text-light: #808080;
+    }
+    */
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    /* Hide interactive elements */
+    .music-btn,
+    .hero__cta,
+    .hero__scroll-indicator,
+    .hero__countdown,
+    .share-btn,
+    .route-btn,
+    .toast,
+    .modal,
+    .preloader {
+        display: none !important;
+    }
+
+    /* Reset colors for print */
+    body {
+        background: white;
+        color: black;
+    }
+
+    .hero {
+        background: none;
+        min-height: auto;
+        page-break-after: avoid;
+    }
+
+    /* Ensure images print properly */
+    .timeline__photo img,
+    .outfit-card__image img {
+        max-width: 100%;
+        page-break-inside: avoid;
+    }
+
+    /* Avoid breaking within sections */
+    section {
+        page-break-inside: avoid;
+    }
+
+    /* Adjust layout for print */
+    .container {
+        max-width: 100%;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY - REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    /* Already handled in animations.css, but ensure responsive styles respect it */
+    .music-btn.playing {
+        animation: none;
+    }
+
+    .hero__cta:hover .cta__arrow {
+        transform: none;
+    }
+
+    .swatch:hover {
+        transform: none;
+    }
+
+    .outfit-card:hover,
+    .wish-card:hover {
+        transform: none;
+    }
+}
+
+/* ============================================
+   TOUCH DEVICES
+   ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+    /* Adjust hover states for touch */
+    .hero__cta:active {
+        transform: scale(0.98);
+    }
+
+    .swatch:active {
+        transform: scale(0.95);
+    }
+
+    .route-btn:active {
+        transform: scale(0.98);
+    }
+
+    .share-btn:active {
+        transform: scale(0.98);
+    }
+
+    /* Larger touch targets */
+    button,
+    .swatch,
+    .location-card__copy {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Smooth scroll for touch */
+    html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ============================================
+   SPECIFIC DEVICE FIXES
+   ============================================ */
+
+/* iPhone notch area */
+@supports (padding: max(0px)) {
+    .music-btn {
+        top: max(var(--space-md), env(safe-area-inset-top));
+        right: max(var(--space-md), env(safe-area-inset-right));
+    }
+}
+
+/* Small phones (iPhone SE, etc.) */
+@media (max-width: 375px) {
+    .hero__day {
+        font-size: 3.5rem;
+    }
+
+    .countdown__item {
+        min-width: 45px;
+    }
+
+    .countdown__number {
+        font-size: 1.25rem;
+    }
+}
+
+/* Large phones (iPhone Plus, Pro Max, etc.) */
+@media (min-width: 376px) and (max-width: 428px) {
+    .hero__day {
+        font-size: 5rem;
+    }
+
+    .countdown__item {
+        min-width: 55px;
+    }
+
+    .countdown__number {
+        font-size: 1.5rem;
+    }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .hero__content {
+        padding: var(--space-xl);
+    }
+
+    .hero__day {
+        font-size: 7rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .hero__day {
+        font-size: 5rem;
+    }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Reduce shadow complexity on mobile */
+    :root {
+        --shadow-soft: 0 2px 10px rgba(212, 175, 55, 0.1);
+        --shadow-medium: 0 4px 20px rgba(212, 175, 55, 0.15);
+        --shadow-strong: 0 6px 30px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Simplify gradients */
+    .hero {
+        background: var(--color-champagne);
+    }
+
+    .final {
+        background: var(--color-beige);
+    }
+}
+
+/* ============================================
+   FONT SIZES ACROSS DEVICES
+   ============================================ */
+
+/* Base font size scaling */
+@media (max-width: 375px) {
+    html {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 376px) and (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    html {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1025px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* ============================================
+   IMAGE OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Use smaller images on mobile */
+    .timeline__photo img,
+    .outfit-card__image img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* ============================================
+   NAVIGATION & INTERACTION
+   ============================================ */
+
+@media (min-width: 1025px) {
+    /* Add hover effects for desktop */
+    .hero__cta:hover {
+        transform: translateY(-3px);
+    }
+
+    .route-btn:hover {
+        transform: translateY(-3px);
+    }
+
+    .share-btn:hover {
+        transform: translateY(-3px);
+    }
+}
+
+@media (max-width: 1024px) {
+    /* Ensure buttons are easily tappable */
+    .hero__cta,
+    .route-btn,
+    .share-btn,
+    .submit-btn {
+        min-height: 48px;
+    }
+}

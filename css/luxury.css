@@ -1,0 +1,415 @@
+/* ============================================
+   LUXURY MINIMALISM UPGRADES
+   Premium design enhancements for elegant wedding invitation
+   ============================================ */
+
+/* ============================================
+   ENHANCED COLOR PALETTE
+   ============================================ */
+
+:root {
+    /* Soft luxorious colors */
+    --color-ivory: #FFFEF8;
+    --color-cream: #F5F0E8;
+    --color-silk: #E8E4E0;
+    --color-dusty-rose: #E0B4B8;
+    --color-mauve: #C8A2C8;
+    --color-warm-gold: #C9A961;
+
+    /* Enhanced backgrounds */
+    --bg-hero: linear-gradient(135deg, #FFFEF8 0%, #F8E8D8 50%, #E8DCC8 100%);
+    --bg-glass-premium: rgba(255, 255, 255, 0.85) backdrop-filter blur(20px);
+    --bg-glass-premium-dark: rgba(255, 255, 255, 0.75) backdrop-filter blur(20px);
+
+    /* Enhanced shadows */
+    --shadow-lift: 0 8px 32px rgba(212, 175, 55, 0.08);
+    --shadow-soft-luxury: 0 16px 48px rgba(212, 175, 55, 0.06);
+    --shadow-premium: 0 24px 64px rgba(212, 175, 55, 0.1);
+}
+
+/* ============================================
+   GLASSMORPHISM CARDS
+   ============================================ */
+
+.glass-card {
+    background: var(--bg-glass-premium);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--bg-glass-border);
+    box-shadow: var(--shadow-lift);
+    transition: var(--transition-normal);
+}
+
+.glass-card:hover {
+    background: var(--bg-glass-premium-dark);
+    box-shadow: var(--shadow-soft-luxury);
+    transform: translateY(-4px);
+}
+
+/* Premium glass button */
+.glass-button {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.9), rgba(212, 175, 55, 0.7));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: var(--shadow-glow);
+}
+
+.glass-button:hover {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 1), rgba(184, 134, 11, 0.8));
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(212, 175, 55, 0.3);
+}
+
+/* ============================================
+   ENHANCED TYPOGRAPHY
+   ============================================ */
+
+.hero__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 8px rgba(212, 175, 55, 0.1);
+}
+
+.hero__ampersand {
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-weight: 600;
+    color: var(--accent-gold);
+    letter-spacing: 0.05em;
+}
+
+.hero__day {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.2));
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+    margin-bottom: var(--space-2xl);
+    position: relative;
+    padding-bottom: var(--space-md);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    border-radius: var(--radius-full);
+}
+
+/* ============================================
+   HERO UPGRADES
+   ============================================ */
+
+.hero {
+    background: var(--bg-hero);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero__content {
+    position: relative;
+    z-index: var(--z-content);
+    padding: var(--space-2xl) var(--space-lg);
+}
+
+.hero__cta {
+    background: linear-gradient(135deg, #D4AF37, #C9A961);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-glow);
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   CARDS UPGRADES
+   ============================================ */
+
+.wish-card,
+.outfit-card,
+.location-card,
+.date-card,
+.time-card,
+.schedule-item,
+.timeline-item {
+    background: var(--bg-primary);
+    border: 1px solid rgba(212, 175, 55, 0.08);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xs);
+    transition: all var(--transition-normal);
+}
+
+.wish-card:hover,
+.outfit-card:hover,
+.location-card:hover {
+    box-shadow: var(--shadow-soft-luxury);
+    transform: translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.15);
+}
+
+/* Premium glass cards */
+.premium-card {
+    background: var(--bg-glass-premium);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--bg-glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-soft-luxury);
+}
+
+/* ============================================
+   COUNTDOWN UPGRADES
+   ============================================ */
+
+.countdown__item {
+    text-align: center;
+    min-width: 60px;
+}
+
+.countdown__number {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+    display: block;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.15));
+}
+
+/* ============================================
+   BUTTON ENHANCEMENTS
+   ============================================ */
+
+.hero__cta,
+.route-btn,
+.share-btn,
+.submit-btn {
+    letter-spacing: 0.05em;
+    text-transform: none;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #D4AF37, #C9A961);
+    border: none;
+    box-shadow: var(--shadow-glow);
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #B8860B, #D4AF37);
+    box-shadow: 0 12px 40px rgba(212, 175, 55, 0.3);
+}
+
+/* ============================================
+   RSVP FORM UPGRADES
+   ============================================ */
+
+.rsvp-form input,
+.rsvp-form select,
+.rsvp-form textarea {
+    background: var(--bg-primary);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    transition: all var(--transition-normal);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.rsvp-form input:focus,
+.rsvp-form select:focus,
+.rsvp-form textarea:focus {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+    outline: none;
+}
+
+/* Radio and checkboxes */
+.radio-option input[type="radio"]:checked ~ .radio-custom,
+.checkbox-option input[type="checkbox"]:checked ~ .checkbox-custom {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+}
+
+/* ============================================
+   MODAL UPGRADES
+   ============================================ */
+
+.modal__content {
+    background: var(--bg-primary);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--bg-glass-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl) var(--space-xl);
+    box-shadow: var(--shadow-premium);
+}
+
+/* ============================================
+   FINAL SECTION UPGRADES
+   ============================================ */
+
+.final {
+    background: linear-gradient(180deg, var(--color-beige) 0%, var(--color-champagne) 100%);
+    position: relative;
+    padding: var(--space-3xl) 0;
+}
+
+.final::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.05), transparent);
+    pointer-events: none;
+}
+
+.final__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.final__couple {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.final__name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   FOOTER UPGRADES
+   ============================================ */
+
+.footer {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2C2C2C 100%);
+    color: var(--text-white);
+    text-align: center;
+    padding: var(--space-2xl) 0;
+}
+
+.footer__text {
+    font-family: var(--font-accent);
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* ============================================
+   SCROLL PROGRESS
+   ============================================ */
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-gold), var(--color-gold-light));
+    z-index: var(--z-header);
+    transition: width var(--transition-fast);
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+/* ============================================
+   MUSIC BUTTON ENHANCEMENT
+   ============================================ */
+
+.music-btn {
+    background: var(--bg-glass-premium);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--bg-glass-border);
+    box-shadow: var(--shadow-soft);
+}
+
+.music-btn.playing {
+    background: var(--bg-glass-premium-dark);
+    animation: pulse-gold 2s ease-in-out infinite;
+}
+
+@keyframes pulse-gold {
+    0%, 100% {
+        box-shadow: 0 4px 16px rgba(212, 175, 55, 0.2);
+    }
+    50% {
+        box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+    }
+}
+
+/* ============================================
+   RESPONSIVE ENHANCEMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+    .hero__day {
+        font-size: 5rem;
+    }
+
+    .countdown__number {
+        font-size: 1.5rem;
+    }
+
+    .premium-card {
+        padding: var(--space-lg);
+    }
+
+    .modal__content {
+        padding: var(--space-xl) var(--space-lg);
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY - REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
