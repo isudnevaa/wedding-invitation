@@ -299,41 +299,49 @@ class RSVPForm {
      * Submit data to server
      */
     async submitData(data) {
-        if (!this.config.submitUrl) {
-            // Demo mode - just log to console
-            console.log('🎉 RSVP Form Submitted (Demo Mode):', data);
-            Utils.showToast('Данные сохранены (демо режим)');
-            return new Promise(resolve => setTimeout(resolve, 1000));
+        // Google Form Entry IDs
+        const entryIds = {
+            name: 'entry.325876116',
+            attendance: 'entry.1706435135',
+            guests: 'entry.118098601',
+            diet: 'entry.541450987'
+        };
+
+        // Prepare data for Google Form
+        const formData = new URLSearchParams();
+        formData.append(entryIds.name, data.name || '');
+        formData.append(entryIds.attendance, data.attendance === 'yes' ? 'Да, с удовольствием!' : 'К сожалению, не смогу');
+        formData.append(entryIds.guests, data.guests || '1');
+
+        // Handle diet (multiple checkboxes to single value)
+        if (data.diet && data.diet.length > 0) {
+            formData.append(entryIds.diet, data.diet.join(', '));
+        } else {
+            formData.append(entryIds.diet, 'Без особенностей');
         }
 
         try {
+            // Send to Google Form
             const response = await fetch(this.config.submitUrl, {
-                method: this.config.submitMethod,
+                method: 'POST',
+                mode: 'no-cors',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: JSON.stringify(data)
+                body: formData.toString()
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            // Save comment locally (not sent to form)
+            console.log('RSVP отправлен в Google Form');
+            console.log('Комментарий сохранён локально:', data.message);
 
-            const result = await response.json();
+            // Save to localStorage (including comment)
+            this.saveSubmission(data);
 
-            // Проверяем ответ от Google Script
-            if (!result.success) {
-                throw new Error(result.error || 'Ошибка при сохранении данных');
-            }
-
-            return result;
+            return { success: true };
 
         } catch (error) {
-            // CORS ошибки или другие проблемы сети
-            if (error.name === 'TypeError' || error.message.includes('fetch')) {
-                console.error('Ошибка сети:', error);
-                throw new Error('Не удалось подключиться к серверу. Проверьте подключение к интернету.');
-            }
+            console.error('Ошибка отправки:', error);
             throw error;
         }
     }
@@ -603,10 +611,8 @@ function initRSVP() {
     rsvpForm = new RSVPForm({
         form: form,
         modal: document.getElementById('successModal'),
-        // 🎉 Для отправки данных на Email - создайте Google Apps Script
-        // Инструкция: GOOGLE_APPS_SCRIPT.md в корне проекта
-        // После создания вставьте URL ниже вместо null:
-        submitUrl: 'https://script.google.com/macros/s/AKfycbyQFEjeqShiB0odh3dJ4RnaXRVfNLnzdOhoGvjsjL3-7kRXg-Nd9HFCAsIkOcydYfXdCw/exec', // ← Вставьте сюда URL: https://script.google.com/macros/s/.../exec
+        // 🎉 Данные отправляются в Google Form
+        submitUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSectH5TPvd8cEYObOLsFh8s6d0W97EjvGKTgmQump7c1JM38g/formResponse',
         submitMethod: 'POST',
         onSuccess: (data) => {
             rsvpAnalytics.track('rsvp_submitted', data);
