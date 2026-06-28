@@ -580,7 +580,7 @@ function initRSVP() {
         // 🎉 Для отправки данных на Email - создайте Google Apps Script
         // Инструкция: GOOGLE_APPS_SCRIPT.md в корне проекта
         // После создания вставьте URL ниже вместо null:
-        submitUrl: 'https://script.google.com/macros/s/AKfycbwaIx3xoJtt7sOrx-6fvcg5f2MPhRmKhc37nbm4UjbvJaqJNBXv2VRn78yAY6pao-KmOg/exec', // ← Вставьте сюда URL: https://script.google.com/macros/s/.../exec
+        submitUrl: 'https://script.google.com/macros/s/AKfycbyQFEjeqShiB0odh3dJ4RnaXRVfNLnzdOhoGvjsjL3-7kRXg-Nd9HFCAsIkOcydYfXdCw/exec', // ← Вставьте сюда URL: https://script.google.com/macros/s/.../exec
         submitMethod: 'POST',
         onSuccess: (data) => {
             rsvpAnalytics.track('rsvp_submitted', data);
