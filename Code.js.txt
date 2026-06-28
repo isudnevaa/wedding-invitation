@@ -1,0 +1,53 @@
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+
+    // Получаем таблицу
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+
+    // Добавляем данные
+    sheet.appendRow([
+      new Date(),
+      data.name || '',
+      data.attendance === 'yes' ? 'Придет' : 'Не придет',
+      data.guests || '1',
+      (data.diet || []).join(', '),
+      data.allergyDetails || '',
+      data.message || '',
+      data.userAgent || ''
+    ]);
+
+    // Отправляем email вам
+    sendEmailNotification(data);
+
+    // Ответ
+    return ContentService.createTextOutput(
+      JSON.stringify({ success: true, message: 'Данные сохранены' })
+    ).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ success: false, error: error.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function sendEmailNotification(data) {
+  var recipient = 'vash@email.com'; // ← ВАШ EMAIL
+  var subject = 'Новое RSVP: ' + data.name;
+
+  var body = 'Новое RSVP!\n\n' +
+             'Имя: ' + data.name + '\n' +
+             'Присутствие: ' + (data.attendance === 'yes' ? 'Придет' : 'Не придет') + '\n' +
+             'Гостей: ' + data.guests + '\n' +
+             'Питание: ' + (data.diet || []).join(', ') + '\n' +
+             'Аллергии: ' + (data.allergyDetails || 'Нет') + '\n\n' +
+             'Комментарий:\n' + (data.message || 'Нет') + '\n\n' +
+             'Дата: ' + new Date().toLocaleString('ru-RU');
+
+  MailApp.sendEmail({
+    to: recipient,
+    subject: subject,
+    body: body
+  });
+}

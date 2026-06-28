@@ -1,0 +1,79 @@
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+
+  try {
+    var data = JSON.parse(e.postData.contents);
+
+    // CORS headers - ВАЖНО!
+    var output = ContentService.createTextOutput(
+      JSON.stringify({ success: true, message: 'Данные сохранены' })
+    ).setMimeType(ContentService.MimeType.JSON);
+
+    output.setHeader('Access-Control-Allow-Origin', '*');
+    output.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+    output.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    // Получаем таблицу
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+
+    // Добавляем данные
+    sheet.appendRow([
+      new Date(),
+      data.name || '',
+      data.attendance === 'yes' ? 'Придет' : 'Не придет',
+      data.guests || '1',
+      (data.diet || []).join(', '),
+      data.allergyDetails || '',
+      data.message || '',
+      data.userAgent || ''
+    ]);
+
+    // Отправляем email
+    sendEmailNotification(data);
+
+    return output;
+
+  } catch (error) {
+    var errorOutput = ContentService.createTextOutput(
+      JSON.stringify({ success: false, error: error.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+
+    errorOutput.setHeader('Access-Control-Allow-Origin', '*');
+    errorOutput.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+    errorOutput.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    return errorOutput;
+
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function doOptions(e) {
+  var output = ContentService.createTextOutput('');
+  output.setHeader('Access-Control-Allow-Origin', '*');
+  output.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+  output.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  return output;
+}
+
+function sendEmailNotification(data) {
+  var recipient = 'vash@email.com'; // ← ВАШ EMAIL
+  var subject = 'Новое RSVP: ' + data.name;
+
+  var body = 'Новое RSVP!\n\n' +
+             'Имя: ' + data.name + '\n' +
+             'Присутствие: ' + (data.attendance === 'yes' ? 'Придет' : 'Не придет') + '\n' +
+             'Гостей: ' + data.guests + '\n' +
+             'Питание: ' + (data.diet || []).join(', ') + '\n' +
+             'Аллергии: ' + (data.allergyDetails || 'Нет') + '\n\n' +
+             'Комментарий:\n' + (data.message || 'Нет') + '\n\n' +
+             'Дата: ' + new Date().toLocaleString('ru-RU');
+
+  MailApp.sendEmail({
+    to: recipient,
+    subject: subject,
+    body: body
+  });
+}
