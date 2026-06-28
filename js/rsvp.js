@@ -275,8 +275,16 @@ class RSVPForm {
         } catch (error) {
             console.error('RSVP submission error:', error);
 
-            // Show error
-            Utils.showToast('Произошла ошибка. Пожалуйста, попробуйте позже.');
+            // Показываем понятное сообщение
+            let errorMessage = 'Произошла ошибка. Пожалуйста, попробуйте позже.';
+
+            if (error.message.includes('сервер') || error.message.includes('сети')) {
+                errorMessage = 'Не удалось подключиться к серверу. Проверьте интернет и попробуйте снова.';
+            } else if (error.message.includes('HTTP')) {
+                errorMessage = 'Ошибка сервера. Пожалуйста, свяжитесь с нами.';
+            }
+
+            Utils.showToast(errorMessage);
 
             // Call error callback
             if (this.config.onError) {
@@ -294,22 +302,40 @@ class RSVPForm {
         if (!this.config.submitUrl) {
             // Demo mode - just log to console
             console.log('🎉 RSVP Form Submitted (Demo Mode):', data);
+            Utils.showToast('Данные сохранены (демо режим)');
             return new Promise(resolve => setTimeout(resolve, 1000));
         }
 
-        const response = await fetch(this.config.submitUrl, {
-            method: this.config.submitMethod,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
+        try {
+            const response = await fetch(this.config.submitUrl, {
+                method: this.config.submitMethod,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            // Проверяем ответ от Google Script
+            if (!result.success) {
+                throw new Error(result.error || 'Ошибка при сохранении данных');
+            }
+
+            return result;
+
+        } catch (error) {
+            // CORS ошибки или другие проблемы сети
+            if (error.name === 'TypeError' || error.message.includes('fetch')) {
+                console.error('Ошибка сети:', error);
+                throw new Error('Не удалось подключиться к серверу. Проверьте подключение к интернету.');
+            }
+            throw error;
         }
-
-        return response.json();
     }
 
     /**
