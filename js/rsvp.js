@@ -300,20 +300,57 @@ class RSVPForm {
      */
     async submitData(data) {
         try {
-            // Prepare form data for Google Form - simpler approach
+            // Prepare form data for Google Form
             const formData = new URLSearchParams();
 
-            // Entry IDs - точно сопоставленные с колонками
-            formData.append('entry.325876116', data.name || '');
-            formData.append('entry.1706435135', data.attendance === 'yes' ? 'Да, с удовольствием!' : 'К сожалению, не смогу');
-            formData.append('entry.118098601', data.guests || '1');
+            // Транслитерация кириллицы для Google Forms
+            function transliterate(text) {
+                const cyrillicMap = {
+                    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
+                    'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
+                    'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+                    'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch',
+                    'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya',
+                    'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'Yo',
+                    'Ж': 'Zh', 'З': 'Z', 'И': 'I', 'Й': 'Y', 'К': 'K', 'Л': 'L', 'М': 'M',
+                    'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U',
+                    'Ф': 'F', 'Х': 'H', 'Ц': 'Ts', 'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Shch',
+                    'Ъ': '', 'Ы': 'Y', 'Ь': '', 'Э': 'E', 'Ю': 'Yu', 'Я': 'Ya'
+                };
 
-            // Diet - отправляем первое значение или "Без особенностей"
-            const dietValue = (data.diet && data.diet.length > 0) ? data.diet[0] : 'Без особенностей';
-            formData.append('entry.541450987', dietValue);
+                return text.split('').map(char => cyrillicMap[char] || char).join('');
+            }
+
+            // Конвертируем имя в латиницу
+            const latinName = transliterate(data.name || '');
+
+            // Entry IDs с правильными значениями
+            formData.append('entry.325876116', latinName);
+            formData.append('entry.1706435135', data.attendance === 'yes' ? 'Да, с удовольствием!' : 'К сожалению, не смогу');
+
+            // Guests - отправляем как текст
+            const guestsMap = {
+                '1': '1',
+                '2': '2',
+                '3': '3',
+                '4': '4',
+                '5': '5'
+            };
+            formData.append('entry.118098601', guestsMap[data.guests] || '1');
+
+            // Diet - отправляем первое значение
+            const dietMap = {
+                'none': 'Без особенностей',
+                'vegetarian': 'Вегетарианец',
+                'vegan': 'Веган',
+                'allergies': 'Пищевая аллергия'
+            };
+            const firstDiet = data.diet && data.diet.length > 0 ? data.diet[0] : 'none';
+            formData.append('entry.541450987', dietMap[firstDiet] || 'Без особенностей');
 
             // Debug logging
             console.log('📤 Отправляем данные:', formData.toString());
+            console.log('👤 Имя (латиница):', latinName);
 
             // Send to Google Form
             const response = await fetch(this.config.submitUrl, {
