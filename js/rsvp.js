@@ -299,28 +299,22 @@ class RSVPForm {
      * Submit data to server
      */
     async submitData(data) {
-        // Google Form Entry IDs
-        const entryIds = {
-            name: 'entry.325876116',
-            attendance: 'entry.1706435135',
-            guests: 'entry.118098601',
-            diet: 'entry.541450987'
-        };
-
-        // Prepare data for Google Form
-        const formData = new URLSearchParams();
-        formData.append(entryIds.name, data.name || '');
-        formData.append(entryIds.attendance, data.attendance === 'yes' ? 'Да, с удовольствием!' : 'К сожалению, не смогу');
-        formData.append(entryIds.guests, data.guests || '1');
-
-        // Handle diet (multiple checkboxes to single value)
-        if (data.diet && data.diet.length > 0) {
-            formData.append(entryIds.diet, data.diet.join(', '));
-        } else {
-            formData.append(entryIds.diet, 'Без особенностей');
-        }
-
         try {
+            // Prepare form data for Google Form - simpler approach
+            const formData = new URLSearchParams();
+
+            // Entry IDs - точно сопоставленные с колонками
+            formData.append('entry.325876116', data.name || '');
+            formData.append('entry.1706435135', data.attendance === 'yes' ? 'Да, с удовольствием!' : 'К сожалению, не смогу');
+            formData.append('entry.118098601', data.guests || '1');
+
+            // Diet - отправляем первое значение или "Без особенностей"
+            const dietValue = (data.diet && data.diet.length > 0) ? data.diet[0] : 'Без особенностей';
+            formData.append('entry.541450987', dietValue);
+
+            // Debug logging
+            console.log('📤 Отправляем данные:', formData.toString());
+
             // Send to Google Form
             const response = await fetch(this.config.submitUrl, {
                 method: 'POST',
@@ -331,17 +325,16 @@ class RSVPForm {
                 body: formData.toString()
             });
 
-            // Save comment locally (not sent to form)
-            console.log('RSVP отправлен в Google Form');
-            console.log('Комментарий сохранён локально:', data.message);
+            console.log('✅ RSVP отправлен в Google Form');
+            console.log('💬 Комментарий сохранён локально:', data.message);
 
-            // Save to localStorage (including comment)
+            // Save to localStorage
             this.saveSubmission(data);
 
             return { success: true };
 
         } catch (error) {
-            console.error('Ошибка отправки:', error);
+            console.error('❌ Ошибка отправки:', error);
             throw error;
         }
     }
