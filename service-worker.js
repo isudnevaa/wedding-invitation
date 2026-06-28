@@ -8,21 +8,21 @@ const OFFLINE_CACHE = 'wedding-offline-v1';
 
 // Assets to cache on install
 const CACHE_ASSETS = [
-    '/',
-    '/index.html',
-    '/css/main.css',
-    '/css/animations.css',
-    '/css/responsive.css',
-    '/js/utils.js',
-    '/js/particles.js',
-    '/js/animations.js',
-    '/js/countdown.js',
-    '/js/music.js',
-    '/js/rsvp.js',
-    '/js/main.js',
-    '/manifest.json',
-    '/assets/images/icon-192.png',
-    '/assets/images/icon-512.png'
+    './',
+    './index.html',
+    './css/main.css',
+    './css/animations.css',
+    './css/responsive.css',
+    './js/utils.js',
+    './js/particles.js',
+    './js/animations.js',
+    './js/countdown.js',
+    './js/music.js',
+    './js/rsvp.js',
+    './js/main.js',
+    './manifest.json',
+    './assets/images/icon-192.png',
+    './assets/images/icon-512.png'
 ];
 
 // Offline fallback page
