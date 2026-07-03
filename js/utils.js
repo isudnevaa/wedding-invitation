@@ -99,8 +99,8 @@ const Utils = {
         if (stored) {
             return new Date(stored);
         }
-        // Default date: August 15, 2026
-        return new Date('2026-08-15T16:00:00');
+        // Default date: 
+        return new Date('2026-07-26T14:00:00');
     },
 
     /**
@@ -152,7 +152,7 @@ const Utils = {
      * @param {number} lat - Latitude
      * @param {number} lng - Longitude
      */
-    openMaps(address, lat = 56.8389, lng = 60.6057) {
+    openMaps(address, lat = 56.803401, lng = 60.647079) {
         const os = this.getMobileOS();
         const encodedAddress = encodeURIComponent(address);
         let url;
@@ -179,7 +179,7 @@ const Utils = {
     async shareContent(shareData) {
         const defaultData = {
             title: 'Свадьба Ирины и Дмитрия',
-            text: 'Приглашаем вас на нашу свадьбу! 15 августа 2026',
+            text: 'Приглашаем вас на нашу свадьбу! 26 июля 2026',
             url: window.location.href
         };
 
