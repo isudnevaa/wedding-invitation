@@ -265,7 +265,7 @@ function initCountdown() {
 // Reset countdown to wedding date
 function resetCountdown() {
     if (countdownInstance) {
-        countdownInstance.setWeddingDate(new Date('2026-08-15T16:00:00'));
+        countdownInstance.setWeddingDate(new Date('2026-07-26T14:00:00'));
     }
 }
 
