@@ -300,47 +300,60 @@ class RSVPForm {
      */
     async submitData(data) {
         try {
-            // Prepare form data for Google Form
-            const formData = new URLSearchParams();
+            // Prepare form data для email
+            const formData = new FormData();
 
-            // Конвертируем имя в латиницу
-            function transliterate(text) {
-                const map = {
-                    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
-                    'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
-                    'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
-                    'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch',
-                    'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya',
-                    'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'Yo',
-                    'Ж': 'Zh', 'З': 'Z', 'И': 'I', 'Й': 'Y', 'К': 'K', 'Л': 'L', 'М': 'M',
-                    'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U',
-                    'Ф': 'F', 'Х': 'H', 'Ц': 'Ts', 'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Shch',
-                    'Ъ': '', 'Ы': 'Y', 'Ь': '', 'Э': 'E', 'Ю': 'Yu', 'Я': 'Ya'
-                };
-                return text.split('').map(c => map[c] || c).join('');
+            // Основные данные
+            formData.append('name', data.name || 'Не указано');
+            formData.append('attendance', data.attendance === 'yes' ? '✅ Да, приду!' : '❌ К сожалению, не смогу');
+            formData.append('guests', data.guests || '1');
+
+            // Особенности питания
+            if (data.diet && data.diet.length > 0) {
+                formData.append('diet', data.diet.join(', '));
+            } else {
+                formData.append('diet', 'Без особенностей');
             }
 
-            // NEW Entry IDs from your form
-            formData.append('entry.326829526', transliterate(data.name || ''));
-            formData.append('entry.2087990197', data.attendance === 'yes' ? 'Да' : 'Нет');
-            formData.append('entry.393726597', data.guests || '1');
+            // Аллергии
+            if (data.allergyDetails) {
+                formData.append('allergies', data.allergyDetails);
+            }
+
+            // Комментарий
+            if (data.message) {
+                formData.append('message', data.message);
+            }
+
+            // Email настройки
+            formData.append('_subject', '👰 Свадьба Дмитрия и Ирины: Новое подтверждение!');
+            formData.append('_captcha', 'false');
+
+            // Добавляем timestamp для сортировки
+            const timestamp = new Date().toLocaleString('ru-RU', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            formData.append('Дата отправки', timestamp);
 
             // Debug logging
-            console.log('📤 Отправляем данные:', formData.toString());
-            console.log('👤 Имя (латиница):', transliterate(data.name || ''));
+            console.log('📤 Отправляем данные на email:');
+            console.log('👤 Имя:', data.name);
+            console.log('📧 Присутствие:', data.attendance);
+            console.log('👥 Гостей:', data.guests);
+            console.log('🍽️ Питание:', data.diet);
+            console.log('💬 Комментарий:', data.message);
 
-            // Send to Google Form
+            // Send to Formsubmit.co
             const response = await fetch(this.config.submitUrl, {
                 method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: formData.toString()
+                body: formData
             });
 
-            console.log('✅ RSVP отправлен в Google Form');
-            console.log('💬 Комментарий сохранён локально:', data.message);
+            console.log('✅ RSVP отправлен на email!');
 
             // Save to localStorage
             this.saveSubmission(data);
@@ -618,8 +631,9 @@ function initRSVP() {
     rsvpForm = new RSVPForm({
         form: form,
         modal: document.getElementById('successModal'),
-        // 🎉 Данные отправляются в новую Google Form
-        submitUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdcsZOdRrwkOUjKCSFoi4nBMqCKe5BfN__HMNridKLUHicdg/formResponse',
+        // 📧 Данные отправляются на email через Formsubmit.co
+        // ЗАМЕНИТЕ НА ВАШ EMAIL: your-email@example.com
+        submitUrl: 'https://formsubmit.co/your-email@example.com',
         submitMethod: 'POST',
         onSuccess: (data) => {
             rsvpAnalytics.track('rsvp_submitted', data);
