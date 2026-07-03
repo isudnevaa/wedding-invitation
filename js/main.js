@@ -174,9 +174,9 @@ class WeddingInvitation {
      */
     openRoute() {
         const addressEl = document.getElementById('address');
-        const address = addressEl ? addressEl.textContent.trim() : 'Улица Свадебная, д. 1, Москва';
+        const address = addressEl ? addressEl.textContent.trim() : 'Переулок Базовый, д. 64, Екатеринбург';
 
-        Utils.openMaps(address, 55.7558, 37.6176);
+        Utils.openMaps(address, 56.803401, 60.647079);
         this.trackEvent('route_opened');
     }
 
@@ -186,7 +186,7 @@ class WeddingInvitation {
     async shareInvitation() {
         const shareData = {
             title: 'Свадьба Ирины и Дмитрия',
-            text: 'Приглашаем вас на нашу свадьбу! 15 августа 2026',
+            text: 'Приглашаем вас на нашу свадьбу! 26 июля 2026',
             url: window.location.href
         };
 
