@@ -363,7 +363,16 @@
                 <h2 class="section-title fade-in-up">Подтверждение присутствия</h2>
                 <p class="rsvp__subtitle fade-in-up">Пожалуйста, подтвердите ваше присутствие до 10 июля 2026</p>
 
-                <form class="rsvp-form fade-in-up" id="rsvpForm" novalidate>
+                <form class="rsvp-form fade-in-up" id="rsvpForm"
+                      action="https://formsubmit.co/your-email@example.com"
+                      method="POST"
+                      novalidate>
+                    <!-- Скрытые поля для Formsubmit.co -->
+                    <input type="hidden" name="_subject" value="👰 Свадьба Дмитрия и Ирины: Новое подтверждение!">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://isudnevaa.github.io/wedding-invitation/?success=true">
+
                     <div class="form-group">
                         <label for="name" class="form-label">Ваше имя *</label>
                         <input type="text" id="name" name="name" class="form-input" placeholder="Иван Иванов" required>

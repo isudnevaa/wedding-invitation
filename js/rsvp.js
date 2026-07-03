@@ -232,13 +232,10 @@ class RSVPForm {
     /**
      * Handle form submission
      */
-    async handleSubmit(e) {
-        e.preventDefault();
-
-        if (this.isSubmitting) return;
-
-        // Validate form
+    handleSubmit(e) {
+        // Валидация
         if (!this.validateForm()) {
+            e.preventDefault();
             // Shake the form to indicate error
             this.form.style.animation = 'shake 0.4s ease';
             setTimeout(() => {
@@ -247,122 +244,27 @@ class RSVPForm {
             return;
         }
 
-        // Collect data
+        // Collect data для сохранения
         const data = this.getFormData();
         this.submittedData = data;
 
-        // Show loading state
-        this.setSubmitting(true);
+        // Save to localStorage
+        this.saveSubmission(data);
 
-        try {
-            // Submit data
-            await this.submitData(data);
+        // Show success immediately
+        this.showSuccess();
 
-            // Save to localStorage
-            this.saveSubmission(data);
+        // Форма отправится обычным HTML способом через Formsubmit.co
+        // preventDefault НЕ вызываем, разрешаем отправку
 
-            // Show success
-            this.showSuccess();
-
-            // Reset form
+        // Reset form после отправки
+        setTimeout(() => {
             this.form.reset();
+        }, 1000);
 
-            // Call success callback
-            if (this.config.onSuccess) {
-                this.config.onSuccess(data);
-            }
-
-        } catch (error) {
-            console.error('RSVP submission error:', error);
-
-            // Показываем понятное сообщение
-            let errorMessage = 'Произошла ошибка. Пожалуйста, попробуйте позже.';
-
-            if (error.message.includes('сервер') || error.message.includes('сети')) {
-                errorMessage = 'Не удалось подключиться к серверу. Проверьте интернет и попробуйте снова.';
-            } else if (error.message.includes('HTTP')) {
-                errorMessage = 'Ошибка сервера. Пожалуйста, свяжитесь с нами.';
-            }
-
-            Utils.showToast(errorMessage);
-
-            // Call error callback
-            if (this.config.onError) {
-                this.config.onError(error);
-            }
-        } finally {
-            this.setSubmitting(false);
-        }
-    }
-
-    /**
-     * Submit data to server
-     */
-    async submitData(data) {
-        try {
-            // Prepare form data для email
-            const formData = new FormData();
-
-            // Основные данные
-            formData.append('name', data.name || 'Не указано');
-            formData.append('attendance', data.attendance === 'yes' ? '✅ Да, приду!' : '❌ К сожалению, не смогу');
-            formData.append('guests', data.guests || '1');
-
-            // Особенности питания
-            if (data.diet && data.diet.length > 0) {
-                formData.append('diet', data.diet.join(', '));
-            } else {
-                formData.append('diet', 'Без особенностей');
-            }
-
-            // Аллергии
-            if (data.allergyDetails) {
-                formData.append('allergies', data.allergyDetails);
-            }
-
-            // Комментарий
-            if (data.message) {
-                formData.append('message', data.message);
-            }
-
-            // Email настройки
-            formData.append('_subject', '👰 Свадьба Дмитрия и Ирины: Новое подтверждение!');
-            formData.append('_captcha', 'false');
-
-            // Добавляем timestamp для сортировки
-            const timestamp = new Date().toLocaleString('ru-RU', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            formData.append('Дата отправки', timestamp);
-
-            // Debug logging
-            console.log('📤 Отправляем данные на email:');
-            console.log('👤 Имя:', data.name);
-            console.log('📧 Присутствие:', data.attendance);
-            console.log('👥 Гостей:', data.guests);
-            console.log('🍽️ Питание:', data.diet);
-            console.log('💬 Комментарий:', data.message);
-
-            // Send to Formsubmit.co
-            const response = await fetch(this.config.submitUrl, {
-                method: 'POST',
-                body: formData
-            });
-
-            console.log('✅ RSVP отправлен на email!');
-
-            // Save to localStorage
-            this.saveSubmission(data);
-
-            return { success: true };
-
-        } catch (error) {
-            console.error('❌ Ошибка отправки:', error);
-            throw error;
+        // Call success callback
+        if (this.config.onSuccess) {
+            this.config.onSuccess(data);
         }
     }
 
@@ -631,10 +533,6 @@ function initRSVP() {
     rsvpForm = new RSVPForm({
         form: form,
         modal: document.getElementById('successModal'),
-        // 📧 Данные отправляются на email через Formsubmit.co
-        // ЗАМЕНИТЕ НА ВАШ EMAIL: your-email@example.com
-        submitUrl: 'https://formsubmit.co/your-email@example.com',
-        submitMethod: 'POST',
         onSuccess: (data) => {
             rsvpAnalytics.track('rsvp_submitted', data);
         },
@@ -646,7 +544,7 @@ function initRSVP() {
     rsvpAnalytics = new RSVPAnalytics();
     rsvpAnalytics.track('rsvp_loaded');
 
-    console.log('RSVP form initialized');
+    console.log('RSVP form initialized - отправка через Formsubmit.co');
 }
 
 // Export functions for external use
